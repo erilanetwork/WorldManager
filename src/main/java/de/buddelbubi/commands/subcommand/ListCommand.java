@@ -1,26 +1,27 @@
 package de.buddelbubi.commands.subcommand;
 
-import java.io.File;
-import java.util.LinkedList;
 import cn.nukkit.Server;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.command.data.CommandParameter;
 import de.buddelbubi.WorldManager;
 
+import java.io.File;
+import java.util.LinkedList;
+
 public class ListCommand extends SubCommand {
 
     public ListCommand() {
         super("list");
-        this.setAliases(new String[] {
-            "list"
+        this.setAliases(new String[]{
+                "list"
         });
     }
 
     @Override
     public CommandParameter[] getParameters() {
 
-        LinkedList < CommandParameter > parameters = new LinkedList < > ();
+        LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         parameters.add(CommandParameter.newType("world", false, CommandParamType.STRING));
         return parameters.toArray(new CommandParameter[parameters.size()]);
@@ -44,9 +45,10 @@ public class ListCommand extends SubCommand {
                 File[] folders = folder.listFiles();
                 int worlds = 0;
                 int loaded = 0;
-                for (File f: folders) {
+                for (File f : folders) {
                     if (!f.isDirectory()) continue;
-                    if (!new File(Server.getInstance().getDataPath() + "worlds/" + f.getName(), "level.dat").exists()) continue;
+                    if (!new File(Server.getInstance().getDataPath() + "worlds/" + f.getName(), "level.dat").exists())
+                        continue;
                     worlds++;
                     if (Server.getInstance().getLevelByName(f.getName()) != null) {
                         loaded++;

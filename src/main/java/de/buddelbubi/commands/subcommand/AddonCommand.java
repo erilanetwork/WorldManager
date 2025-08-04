@@ -1,27 +1,27 @@
 package de.buddelbubi.commands.subcommand;
 
-import java.util.LinkedList;
-
 import cn.nukkit.Player;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.data.CommandParameter;
 import de.buddelbubi.WorldManager;
 import de.buddelbubi.listener.Addons;
 
+import java.util.LinkedList;
+
 public class AddonCommand extends SubCommand {
 
     public AddonCommand() {
         super("addon");
-        this.setAliases(new String[] {
-            "addon",
-            "addons"
+        this.setAliases(new String[]{
+                "addon",
+                "addons"
         });
     }
 
     @Override
     public CommandParameter[] getParameters() {
 
-        LinkedList < CommandParameter > parameters = new LinkedList < > ();
+        LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         return parameters.toArray(new CommandParameter[parameters.size()]);
 

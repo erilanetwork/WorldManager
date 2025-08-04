@@ -1,6 +1,5 @@
 package de.buddelbubi.commands.subcommand;
 
-import java.util.LinkedList;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.command.CommandSender;
@@ -9,19 +8,21 @@ import cn.nukkit.command.data.CommandParameter;
 import cn.nukkit.level.Level;
 import de.buddelbubi.WorldManager;
 
+import java.util.LinkedList;
+
 public class SaveCommand extends SubCommand {
 
     public SaveCommand() {
         super("save");
-        this.setAliases(new String[] {
-            "save"
+        this.setAliases(new String[]{
+                "save"
         });
     }
 
     @Override
     public CommandParameter[] getParameters() {
 
-        LinkedList < CommandParameter > parameters = new LinkedList < > ();
+        LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         parameters.add(CommandParameter.newType("world", true, CommandParamType.STRING));
         return parameters.toArray(new CommandParameter[parameters.size()]);
@@ -41,8 +42,7 @@ public class SaveCommand extends SubCommand {
                 sender.sendMessage(WorldManager.prefix + "§cDo /worldmanager save [World]*.");
                 return false;
             } else l = ((Player) sender).getLevel();
-        } else
-        if (args.length == 2) {
+        } else if (args.length == 2) {
             if (Server.getInstance().getLevelByName(args[1]) != null) {
 
                 l = Server.getInstance().getLevelByName(args[1]);

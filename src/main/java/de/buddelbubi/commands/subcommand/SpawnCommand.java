@@ -1,49 +1,50 @@
 package de.buddelbubi.commands.subcommand;
 
-import java.util.LinkedList;
 import cn.nukkit.Player;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.data.CommandParameter;
 import de.buddelbubi.WorldManager;
 
-public class SpawnCommand extends SubCommand{
+import java.util.LinkedList;
 
-	public SpawnCommand() {
-		super("spawn");
-		this.setAliases(new String[] {
-				"spawn"
-		});
-	}
+public class SpawnCommand extends SubCommand {
 
-	@Override
-	public CommandParameter[] getParameters() {
-		
-		LinkedList<CommandParameter> parameters = new LinkedList<>();
-		parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
-		return parameters.toArray(new CommandParameter[parameters.size()]);
-		
-	}
-	
-	@Override
-	public boolean execute(CommandSender sender, String arg1, String[] args) {
-		
-		 if (!sender.hasPermission("worldmanager.admin") && !sender.hasPermission("worldmanager.spawn")) {
+    public SpawnCommand() {
+        super("spawn");
+        this.setAliases(new String[]{
+                "spawn"
+        });
+    }
 
-			 sender.sendMessage(WorldManager.prefix + "§cYou are lacking the permission §e'worldmanager." + args[0] + "'.");
-			 return false;
+    @Override
+    public CommandParameter[] getParameters() {
 
-		  } else {
+        LinkedList<CommandParameter> parameters = new LinkedList<>();
+        parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
+        return parameters.toArray(new CommandParameter[parameters.size()]);
 
-			 if (sender instanceof Player) {
+    }
 
-				((Player) sender).teleport(((Player) sender).getLevel().getSafeSpawn());
-				sender.sendMessage(WorldManager.prefix + "§7Successfully teleported to spawn.");
+    @Override
+    public boolean execute(CommandSender sender, String arg1, String[] args) {
 
-			 } else sender.sendMessage(WorldManager.prefix + "§cThis command can only be executed ingame.");
+        if (!sender.hasPermission("worldmanager.admin") && !sender.hasPermission("worldmanager.spawn")) {
 
-		  }
-		
-		return false;
-	}
+            sender.sendMessage(WorldManager.prefix + "§cYou are lacking the permission §e'worldmanager." + args[0] + "'.");
+            return false;
+
+        } else {
+
+            if (sender instanceof Player) {
+
+                ((Player) sender).teleport(((Player) sender).getLevel().getSafeSpawn());
+                sender.sendMessage(WorldManager.prefix + "§7Successfully teleported to spawn.");
+
+            } else sender.sendMessage(WorldManager.prefix + "§cThis command can only be executed ingame.");
+
+        }
+
+        return false;
+    }
 
 }

@@ -1,9 +1,5 @@
 package de.buddelbubi.commands.subcommand;
 
-import java.io.File;
-import java.util.LinkedList;
-import org.iq80.leveldb.util.FileUtils;
-
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.command.CommandSender;
@@ -11,23 +7,27 @@ import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.command.data.CommandParameter;
 import cn.nukkit.level.Level;
 import de.buddelbubi.WorldManager;
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.util.LinkedList;
 
 public class DeleteCommand extends SubCommand {
 
     public DeleteCommand() {
         super("delete");
-        this.setAliases(new String[] {
-            "delete",
-            "del",
-            "remove",
-            "purge"
+        this.setAliases(new String[]{
+                "delete",
+                "del",
+                "remove",
+                "purge"
         });
     }
 
     @Override
     public CommandParameter[] getParameters() {
 
-        LinkedList < CommandParameter > parameters = new LinkedList < > ();
+        LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         parameters.add(CommandParameter.newType("world", true, CommandParamType.STRING));
         return parameters.toArray(new CommandParameter[parameters.size()]);
@@ -45,20 +45,21 @@ public class DeleteCommand extends SubCommand {
 
             try {
                 if (args.length == 2) {
-                	
-                	String name = args[1];
-                	if(name.equals("-c") && sender instanceof Player) name = ((Player) sender).getLevel().getName(); // with argument to prevent usage on accident
+
+                    String name = args[1];
+                    if (name.equals("-c") && sender instanceof Player)
+                        name = ((Player) sender).getLevel().getName(); // with argument to prevent usage on accident
                     Level l = Server.getInstance().getLevelByName(name);
                     name = l.getName();
                     String folder = l.getFolderName();
-                    
+
                     if (Server.getInstance().getLevelByName(name) != null) {
-                    	
+
                         l.unload();
                         File regionfolder = new File(Server.getInstance().getDataPath() + "worlds/" + folder + "/region");
                         File worldfolder = new File(Server.getInstance().getDataPath() + "worlds/" + folder);
-                        FileUtils.deleteDirectoryContents(regionfolder);
-                        FileUtils.deleteDirectoryContents(worldfolder);
+                        FileUtils.deleteDirectory(regionfolder);
+                        FileUtils.deleteDirectory(worldfolder);
                         worldfolder.delete();
 
                         sender.sendMessage(WorldManager.prefix + "§7Deleted the world §8" + name + ".");

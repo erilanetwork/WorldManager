@@ -1,6 +1,5 @@
 package de.buddelbubi.commands.subcommand;
 
-import java.util.LinkedList;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.command.CommandSender;
@@ -9,20 +8,22 @@ import cn.nukkit.command.data.CommandParameter;
 import cn.nukkit.level.Level;
 import de.buddelbubi.WorldManager;
 
+import java.util.LinkedList;
+
 public class SetseedCommand extends SubCommand {
 
     public SetseedCommand() {
         super("setseed");
-        this.setAliases(new String[] {
-            "setseed",
-            "reseed"
+        this.setAliases(new String[]{
+                "setseed",
+                "reseed"
         });
     }
 
     @Override
     public CommandParameter[] getParameters() {
 
-        LinkedList < CommandParameter > parameters = new LinkedList < > ();
+        LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         parameters.add(CommandParameter.newType("world", true, CommandParamType.STRING));
         parameters.add(CommandParameter.newType("seed", false, CommandParamType.STRING));

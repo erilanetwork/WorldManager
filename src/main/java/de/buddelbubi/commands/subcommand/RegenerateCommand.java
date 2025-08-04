@@ -1,20 +1,23 @@
 package de.buddelbubi.commands.subcommand;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.LinkedList;
-
-import cn.nukkit.event.player.PlayerTeleportEvent;
-import cn.nukkit.level.Location;
-import org.iq80.leveldb.util.FileUtils;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.command.data.CommandParameter;
+import cn.nukkit.level.DimensionEnum;
 import cn.nukkit.level.Level;
+import cn.nukkit.level.Location;
+import cn.nukkit.level.format.LevelConfig;
 import cn.nukkit.level.generator.Generator;
 import de.buddelbubi.WorldManager;
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 public class RegenerateCommand extends SubCommand {
 
@@ -65,7 +68,7 @@ public class RegenerateCommand extends SubCommand {
                 Generator generator = l.getGenerator();
                 String name = l.getFolderName();
                 HashMap<String, Location> locations = new HashMap<>();
-                for(Player p : l.getPlayers().values()) {
+                for (Player p : l.getPlayers().values()) {
                     locations.put(p.getName(), p.getLocation());
                     p.teleport(Server.getInstance().getDefaultLevel().getSpawnLocation());
                 }
@@ -77,18 +80,27 @@ public class RegenerateCommand extends SubCommand {
 
                 File regionfolder = new File(Server.getInstance().getDataPath() + "worlds/" + name + "/region");
                 if (regionfolder.exists() && regionfolder.isDirectory()) {
-                    FileUtils.deleteDirectoryContents(regionfolder);
+                    try {
+                        FileUtils.deleteDirectory(regionfolder);
+                    } catch (IOException e) {
+                    }
                 }
 
                 File worldfolder = new File(Server.getInstance().getDataPath() + "worlds/" + name);
                 if (worldfolder.exists() && worldfolder.isDirectory()) {
-                    FileUtils.deleteDirectoryContents(worldfolder);
+                    try {
+                        FileUtils.deleteDirectory(worldfolder);
+                    } catch (IOException e) {
+                    }
                     worldfolder.delete();
                 }
 
-                Server.getInstance().generateLevel(name, seed, generator.getClass());
+                HashMap<Integer, LevelConfig.GeneratorConfig> generatorConfig = new HashMap<>();
+                generatorConfig.put(0, new LevelConfig.GeneratorConfig(generator.getName(), seed, false, LevelConfig.AntiXrayMode.LOW, true, DimensionEnum.OVERWORLD.getDimensionData(), Collections.emptyMap()));
+                LevelConfig levelConfig = new LevelConfig("leveldb", true, generatorConfig);
+                Server.getInstance().generateLevel(name, levelConfig);
                 l = Server.getInstance().getLevelByName(name);
-                for(String s : locations.keySet()) {
+                for (String s : locations.keySet()) {
                     Player p = Server.getInstance().getPlayer(s);
                     Location loc = locations.get(s);
                     loc.setLevel(l);
