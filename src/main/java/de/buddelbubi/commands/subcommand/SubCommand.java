@@ -5,7 +5,6 @@ import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.data.CommandParameter;
 
 public abstract class SubCommand extends Command {
-
     public SubCommand(String name) {
         super(name);
     }

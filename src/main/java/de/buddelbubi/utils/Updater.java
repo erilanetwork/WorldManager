@@ -11,22 +11,17 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 public class Updater {
-
     public static void checkAndDoUpdateIfAvailable() {
-
         new Thread(() -> {
-
             if (updateAvailable()) {
                 installLastestVersion();
             }
 
         }).start();
-
     }
 
     @SuppressWarnings("resource")
     public static boolean updateAvailable() {
-
         try {
             String ver = getNewestVersion();
             if (!(ver.contains(WorldManager.get().getDescription().getVersion()))) {
@@ -36,13 +31,11 @@ public class Updater {
         } catch (Exception e) {
             return false;
         }
-
     }
 
 
     public static void installLastestVersion() {
         try {
-
             URL url = new URL("https://cloudburstmc.org/resources/worldmanager-advanced-multiworld-plugin.560/download");
             File file = new File(WorldManager.get().getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
             InputStream in = url.openStream();
@@ -57,7 +50,6 @@ public class Updater {
     }
 
     public static String getNewestVersion() {
-
         String result = WorldManager.get().getDescription().getVersion(); //in case something goes wrong.
         try {
             result = Addons.json.get("version").getAsString();

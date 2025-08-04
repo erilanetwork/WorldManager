@@ -13,7 +13,6 @@ import java.io.File;
 import java.util.LinkedList;
 
 public class DeleteCommand extends SubCommand {
-
     public DeleteCommand() {
         super("delete");
         this.setAliases(new String[]{
@@ -26,26 +25,21 @@ public class DeleteCommand extends SubCommand {
 
     @Override
     public CommandParameter[] getParameters() {
-
         LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         parameters.add(CommandParameter.newType("world", true, CommandParamType.STRING));
         return parameters.toArray(new CommandParameter[parameters.size()]);
-
     }
 
     @Override
     public boolean execute(CommandSender sender, String arg1, String[] args) {
         if (!sender.hasPermission("worldmanager.admin") && !sender.hasPermission("worldmanager.delete")) {
-
             sender.sendMessage(WorldManager.prefix + "§cYou are lacking the permission §e'worldmanager.delete'.");
             return false;
 
         } else {
-
             try {
                 if (args.length == 2) {
-
                     String name = args[1];
                     if (name.equals("-c") && sender instanceof Player)
                         name = ((Player) sender).getLevel().getName(); // with argument to prevent usage on accident
@@ -54,7 +48,6 @@ public class DeleteCommand extends SubCommand {
                     String folder = l.getFolderName();
 
                     if (Server.getInstance().getLevelByName(name) != null) {
-
                         l.unload();
                         File regionfolder = new File(Server.getInstance().getDataPath() + "worlds/" + folder + "/region");
                         File worldfolder = new File(Server.getInstance().getDataPath() + "worlds/" + folder);
@@ -67,7 +60,6 @@ public class DeleteCommand extends SubCommand {
 
                 } else sender.sendMessage(WorldManager.prefix + "§cDo /worldmanager delete [Name].");
             } catch (Exception e) {
-
             }
         }
         return false;

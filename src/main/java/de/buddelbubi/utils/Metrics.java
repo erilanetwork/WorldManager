@@ -24,13 +24,11 @@ import java.util.zip.GZIPOutputStream;
 
 
 public class Metrics {
-
     private final Plugin plugin;
 
     private final MetricsBase metricsBase;
 
     public Metrics(Plugin plugin, int serviceId) {
-
         Server.getInstance().getLogger().info("bStats Metrics loaded");
 
         this.plugin = plugin;
@@ -82,7 +80,6 @@ public class Metrics {
     }
 
     private void appendPlatformData(JsonObjectBuilder builder) {
-
         // Unused because everything is handled in CustomMetricsManager.java
 	  
 	/* Default code
@@ -96,7 +93,6 @@ public class Metrics {
     builder.appendField("osArch", System.getProperty("os.arch"));
     builder.appendField("osVersion", System.getProperty("os.version"));
     builder.appendField("coreCount", Runtime.getRuntime().availableProcessors()); */
-
     }
 
     private void appendServiceData(JsonObjectBuilder builder) {
@@ -104,7 +100,6 @@ public class Metrics {
     }
 
     public static class MetricsBase {
-
         /**
          * The version of the Metrics class.
          */
@@ -332,7 +327,6 @@ public class Metrics {
     }
 
     public static class AdvancedBarChart extends CustomChart {
-
         private final Callable<Map<String, int[]>> callable;
 
         /**
@@ -372,7 +366,6 @@ public class Metrics {
     }
 
     public static class SimpleBarChart extends CustomChart {
-
         private final Callable<Map<String, Integer>> callable;
 
         /**
@@ -402,7 +395,6 @@ public class Metrics {
     }
 
     public static class MultiLineChart extends CustomChart {
-
         private final Callable<Map<String, Integer>> callable;
 
         /**
@@ -442,7 +434,6 @@ public class Metrics {
     }
 
     public static class AdvancedPie extends CustomChart {
-
         private final Callable<Map<String, Integer>> callable;
 
         /**
@@ -482,7 +473,6 @@ public class Metrics {
     }
 
     public abstract static class CustomChart {
-
         private final String chartId;
 
         protected CustomChart(String chartId) {
@@ -516,7 +506,6 @@ public class Metrics {
     }
 
     public static class SingleLineChart extends CustomChart {
-
         private final Callable<Integer> callable;
 
         /**
@@ -542,7 +531,6 @@ public class Metrics {
     }
 
     public static class SimplePie extends CustomChart {
-
         private final Callable<String> callable;
 
         /**
@@ -568,7 +556,6 @@ public class Metrics {
     }
 
     public static class DrilldownPie extends CustomChart {
-
         private final Callable<Map<String, Map<String, Integer>>> callable;
 
         /**
@@ -618,7 +605,6 @@ public class Metrics {
      * for its use-case.
      */
     public static class JsonObjectBuilder {
-
         private StringBuilder builder = new StringBuilder();
 
         private boolean hasAtLeastOneField = false;
@@ -803,7 +789,6 @@ public class Metrics {
          * JsonObject)}.
          */
         public static class JsonObject {
-
             private final String value;
 
             private JsonObject(String value) {

@@ -18,7 +18,6 @@ public class CustomMetricsManager {
 
 
     public static void loadMetrics() {
-
         Server.getInstance().getLogger().info("bStats Metrics loading...");
 
         Metrics metrics = new Metrics(WorldManager.get(), 11320);
@@ -72,7 +71,6 @@ public class CustomMetricsManager {
         metrics.addCustomChart(serverLocation);
         metrics.addCustomChart(javaVersion);
         metrics.addCustomChart(serverSoftware);
-
     }
 
 

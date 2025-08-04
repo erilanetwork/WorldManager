@@ -13,7 +13,6 @@ import de.buddelbubi.WorldManager;
 import java.util.*;
 
 public class ReloadCommand extends SubCommand {
-
     public ReloadCommand() {
         super("reload");
         this.setAliases(new String[]{
@@ -23,26 +22,20 @@ public class ReloadCommand extends SubCommand {
 
     @Override
     public CommandParameter[] getParameters() {
-
         LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         parameters.add(CommandParameter.newType("world", true, CommandParamType.STRING));
         return parameters.toArray(new CommandParameter[parameters.size()]);
-
     }
 
     @Override
     public boolean execute(CommandSender sender, String arg1, String[] args) {
-
         if (!sender.hasPermission("worldmanager.admin") && !sender.hasPermission("worldmanager.reload")) {
-
             sender.sendMessage(WorldManager.prefix + "§cYou are lacking the permission §e'worldmanager.reload'.");
             return false;
 
         } else {
-
             if (args.length == 1 || args.length == 2) {
-
                 if (args.length == 1) {
                     List<Level> levels = new ArrayList<>();
                     for (Level l : Server.getInstance().getLevels().values()) {
@@ -52,7 +45,6 @@ public class ReloadCommand extends SubCommand {
                     }
 
                     for (Level l : levels) {
-
                         HashMap<UUID, Vector3f> players = new HashMap<>();
                         for (Player p : l.getPlayers().values()) players.put(p.getUniqueId(), p.asVector3f());
 

@@ -14,7 +14,6 @@ import de.buddelbubi.listener.WorldManagerUI;
 import java.util.LinkedList;
 
 public class TeleportCommand extends SubCommand {
-
     public TeleportCommand() {
         super("teleport");
         this.setAliases(new String[]{
@@ -27,7 +26,6 @@ public class TeleportCommand extends SubCommand {
 
     @Override
     public CommandParameter[] getParameters() {
-
         LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         parameters.add(CommandParameter.newType("world", true, CommandParamType.STRING));
@@ -37,13 +35,11 @@ public class TeleportCommand extends SubCommand {
 
     @Override
     public boolean execute(CommandSender sender, String arg1, String[] args) {
-        if (sender instanceof Player) {
+        if (sender instanceof Player player) {
             if (args.length >= 1) {
-
                 if ((args.length == 3 && args[1].equals("-s")) || args.length == 1) {
-
                     if ((sender.hasPermission("worldmanager.teleportui") || sender.hasPermission("worldmanager.admin"))) {
-                        WorldManagerUI.openWorldTeleportUI((Player) sender, args.length == 3 ? args[2] : null);
+                        WorldManagerUI.openWorldTeleportUI(player, args.length == 3 ? args[2] : null);
                         return true;
                     } else {
                         sender.sendMessage(WorldManager.prefix + "§cYou are lacking the permission §e'worldmanager.teleportui'.");
@@ -53,7 +49,6 @@ public class TeleportCommand extends SubCommand {
                 }
 
                 String world = args[1];
-                Player player = (Player) sender;
                 if (Server.getInstance().getLevelByName(world) != null) {
                     if (sender instanceof ConsoleCommandSender) {
                         sender.sendMessage(WorldManager.prefix + "§cDo /worldmanager teleport [Level]");

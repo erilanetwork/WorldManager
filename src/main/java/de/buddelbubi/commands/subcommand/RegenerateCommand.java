@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class RegenerateCommand extends SubCommand {
-
     public RegenerateCommand() {
         super("regenerate");
         this.setAliases(new String[]{
@@ -33,7 +32,6 @@ public class RegenerateCommand extends SubCommand {
 
     @Override
     public CommandParameter[] getParameters() {
-
         LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         parameters.add(CommandParameter.newType("world", true, CommandParamType.STRING));
@@ -42,7 +40,6 @@ public class RegenerateCommand extends SubCommand {
 
     @Override
     public boolean execute(CommandSender sender, String arg1, String[] args) {
-
         if (!sender.hasPermission("worldmanager.admin") && !sender.hasPermission("worldmanager.regenerate")) {
             sender.sendMessage(WorldManager.prefix + "§cYou are lacking the permission §e'worldmanager.regenerate'.");
             return false;

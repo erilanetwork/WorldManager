@@ -15,7 +15,6 @@ import de.buddelbubi.WorldManager;
 import java.util.LinkedList;
 
 public class GameruleCommand extends SubCommand {
-
     public GameruleCommand() {
         super("gamerule");
         this.setAliases(new String[]{
@@ -26,17 +25,14 @@ public class GameruleCommand extends SubCommand {
 
     @Override
     public CommandParameter[] getParameters() {
-
         LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         parameters.add(CommandParameter.newType("world", true, CommandParamType.STRING));
         return parameters.toArray(new CommandParameter[parameters.size()]);
-
     }
 
     @Override
     public boolean execute(CommandSender sender, String arg1, String[] args) {
-
         if (!(sender instanceof Player)) {
             sender.sendMessage(WorldManager.prefix + "§cThis command can only be used ingame.");
             return false;
@@ -52,7 +48,6 @@ public class GameruleCommand extends SubCommand {
             l = ((Player) sender).getLevel();
         } else if (args.length == 2) {
             if (Server.getInstance().getLevelByName(args[1]) != null) {
-
                 l = Server.getInstance().getLevelByName(args[1]);
 
             } else {
@@ -68,7 +63,6 @@ public class GameruleCommand extends SubCommand {
         CustomForm c = new CustomForm("§3WorldGamerules - " + l.getFolderName());
         for (GameRule r : GameRule.values()) {
             switch (l.getGameRules().getGameRuleType(r)) {
-
                 case BOOLEAN:
                     c.addElement(new ElementToggle(r.getName(), l.getGameRules().getBoolean(r)));
                     break;

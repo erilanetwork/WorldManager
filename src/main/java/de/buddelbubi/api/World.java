@@ -7,7 +7,7 @@ import cn.nukkit.utils.Config;
 import java.io.File;
 
 public class World {
-    private String level;
+    private final String level;
     private Config config;
     private boolean loadonstart;
     private int gamemode;
@@ -20,10 +20,8 @@ public class World {
 
     //Uncached World Object. It is recommended to use Cache.getWorld(Level level);
     public World(Level level) {
-
         this.level = level.getName();
         refreshData();
-
     }
 
     public Level getAsLevel() {
@@ -176,7 +174,6 @@ public class World {
 
 
     public void refreshData() {
-
         // If you are using the api, execute this to refresh the data. It may be changed by UI changes or manual config overwrites.
 
         this.config = new Config(new File(Server.getInstance().getDataPath() + "/worlds/" + this.getAsLevel().getFolderName(), "config.yml"));
@@ -191,7 +188,6 @@ public class World {
             this.thumbnail = "path::textures/blocks/grass_side_carried.png";
         }
         this.note = this.config.getString("note");
-
     }
 
 

@@ -24,7 +24,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SettingsCommand extends SubCommand {
-
     public SettingsCommand() {
         super("settings");
         this.setAliases(new String[]{
@@ -35,30 +34,24 @@ public class SettingsCommand extends SubCommand {
 
     @Override
     public CommandParameter[] getParameters() {
-
         LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         parameters.add(CommandParameter.newType("world", true, CommandParamType.STRING));
         return parameters.toArray(new CommandParameter[parameters.size()]);
-
     }
 
     @Override
     public boolean execute(CommandSender sender, String arg1, String[] args) {
-
         if (sender instanceof ConsoleCommandSender) {
             sender.sendMessage(WorldManager.prefix + "§cThis can only be done ingame.");
             return false;
         }
         if (!sender.hasPermission("worldmanager.admin") && !sender.hasPermission("worldmanager.settings")) {
-
             sender.sendMessage(WorldManager.prefix + "§cYou are lacking the permission §e'worldmanager.settings'.");
             return false;
 
         } else {
-
             if (args.length == 1 || args.length == 2) {
-
                 Level l = ((Player) sender).getLevel();
                 if (args.length == 2) {
                     if (Server.getInstance().getLevelByName(args[1]) != null) {

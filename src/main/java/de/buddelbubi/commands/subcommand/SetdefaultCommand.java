@@ -9,7 +9,6 @@ import de.buddelbubi.WorldManager;
 import java.util.LinkedList;
 
 public class SetdefaultCommand extends SubCommand {
-
     public SetdefaultCommand() {
         super("setdefault");
         this.setAliases(new String[]{
@@ -20,17 +19,14 @@ public class SetdefaultCommand extends SubCommand {
 
     @Override
     public CommandParameter[] getParameters() {
-
         LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         parameters.add(CommandParameter.newType("world", true, CommandParamType.STRING));
         return parameters.toArray(new CommandParameter[parameters.size()]);
-
     }
 
     @Override
     public boolean execute(CommandSender sender, String arg1, String[] args) {
-
         if (!sender.hasPermission("worldmanager.admin") && !sender.hasPermission("worldmanager.default") && !sender.hasPermission("worldmanager.setdefault")) {
             sender.sendMessage(WorldManager.prefix + "§cYou are lacking the permission §e'worldmanager." + args[0] + "'");
             return false;

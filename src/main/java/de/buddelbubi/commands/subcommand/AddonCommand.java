@@ -9,7 +9,6 @@ import de.buddelbubi.listener.Addons;
 import java.util.LinkedList;
 
 public class AddonCommand extends SubCommand {
-
     public AddonCommand() {
         super("addon");
         this.setAliases(new String[]{
@@ -20,18 +19,14 @@ public class AddonCommand extends SubCommand {
 
     @Override
     public CommandParameter[] getParameters() {
-
         LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         return parameters.toArray(new CommandParameter[parameters.size()]);
-
     }
 
     @Override
     public boolean execute(CommandSender sender, String arg1, String[] args) {
-
         if (sender instanceof Player && sender.hasPermission("worldmanager.addon")) {
-
             Addons.showAddonUI((Player) sender);
 
         } else sender.sendMessage(WorldManager.prefix + "§cYou are lacking the permission 'worldmanager.addon'.");

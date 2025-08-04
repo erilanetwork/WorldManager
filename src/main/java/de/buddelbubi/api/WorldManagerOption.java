@@ -8,15 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorldManagerOption {
-
-    private static List<WorldManagerOption> custom = new ArrayList<>();
+    private static final List<WorldManagerOption> custom = new ArrayList<>();
 
     public static List<WorldManagerOption> getCustomOptions() {
         return custom;
     }
 
     public static void insertCustom(WorldManagerOption option) {
-
         for (WorldManagerOption o : custom)
             if (o.key.equals(option.key)) {
                 WorldManager.get().getLogger().info(option.display + " failed to inject into WorldManager. (Duplicate)");

@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class CommandMapping extends Command {
-
-    private ArrayList<SubCommand> subcommands = new ArrayList<>();
+    private final ArrayList<SubCommand> subcommands = new ArrayList<>();
 
     public CommandMapping() {
         super("worldmanager");
@@ -22,13 +21,10 @@ public class CommandMapping extends Command {
 
     @Override
     public boolean execute(CommandSender sender, String arg1, String[] args) {
-
         if (args.length > 0) {
-
             String name = args[0].toLowerCase();
 
             for (SubCommand command : subcommands) {
-
                 if (Arrays.asList(command.getAliases()).contains(name)) {
                     command.execute(sender, arg1, args);
                     return true;
@@ -48,7 +44,6 @@ public class CommandMapping extends Command {
     }
 
     public void register() {
-
         SubCommand[] subcommands = new SubCommand[]{
                 new TeleportCommand(),
                 new GenerateCommand(),

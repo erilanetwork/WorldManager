@@ -11,7 +11,6 @@ import de.buddelbubi.WorldManager;
 import java.util.LinkedList;
 
 public class SaveCommand extends SubCommand {
-
     public SaveCommand() {
         super("save");
         this.setAliases(new String[]{
@@ -21,17 +20,14 @@ public class SaveCommand extends SubCommand {
 
     @Override
     public CommandParameter[] getParameters() {
-
         LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         parameters.add(CommandParameter.newType("world", true, CommandParamType.STRING));
         return parameters.toArray(new CommandParameter[parameters.size()]);
-
     }
 
     @Override
     public boolean execute(CommandSender sender, String arg1, String[] args) {
-
         if (!sender.hasPermission("worldmanager.admin") && !sender.hasPermission("worldmanager.save")) {
             sender.sendMessage(WorldManager.prefix + "§cYou are lacking the permission §e'worldmanager." + args[0] + "'");
             return false;
@@ -44,7 +40,6 @@ public class SaveCommand extends SubCommand {
             } else l = ((Player) sender).getLevel();
         } else if (args.length == 2) {
             if (Server.getInstance().getLevelByName(args[1]) != null) {
-
                 l = Server.getInstance().getLevelByName(args[1]);
 
             } else {

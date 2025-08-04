@@ -12,13 +12,11 @@ import java.util.Collection;
 import java.util.HashMap;
 
 public class Cache implements Listener {
-
     public final static HashMap<String, Byte> gamemodes = new HashMap<>();
     private final static HashMap<String, World> worlds = new HashMap<>();
 
 
     public static World getWorld(Level level) {
-
         if (!worlds.containsKey(level.getName())) Cache.initWorld(level);
 
         if (worlds.containsKey(level.getName())) {
@@ -54,9 +52,8 @@ public class Cache implements Listener {
     @SuppressWarnings("deprecation")
     @EventHandler
     public void on(LevelUnloadEvent e) {
-        if (worlds.containsKey(e.getLevel().getName())) worlds.remove(e.getLevel().getName());
+        worlds.remove(e.getLevel().getName());
         Server.getInstance().getScheduler().scheduleDelayedTask(new Runnable() {
-
             @Override
             public void run() {
                 WorldManager.get().getLogger().info("§eIf you see any errors, please keep in mind that they are not related to WorldManager.");

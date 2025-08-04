@@ -29,10 +29,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class Events implements Listener {
-
     @EventHandler
     public void onLevelLoad(LevelLoadEvent e) {
-
         File file = new File(Server.getInstance().getDataPath() + "worlds/" + e.getLevel().getFolderName(), "config.yml");
 
         if (!file.exists()) {
@@ -66,13 +64,11 @@ public class Events implements Listener {
         } catch (Exception e2) {
             WorldManager.get().getLogger().warning("Failed to load all worlds in cache!");
         }
-
     }
 
     @SuppressWarnings("deprecation")
     @EventHandler
     public void onTeleport(PlayerTeleportEvent e) {
-
         Player p = e.getPlayer();
 
         if (e.getTo().getLevel() == null || e.getFrom().getLevel() == null) return;
@@ -84,7 +80,6 @@ public class Events implements Listener {
         }
 
         if (!e.getTo().getLevel().equals(e.getFrom().getLevel())) {
-
             if (world.isUsingOwnGamemode()) {
                 Cache.gamemodes.put(p.getName(), (byte) p.getGamemode());
                 p.setGamemode(world.getOwnGamemode());
@@ -97,16 +92,13 @@ public class Events implements Listener {
             if (p.getGamemode() != 1) p.setAllowFlight(world.isFlyAllowed());
 
         }
-
     }
 
     HashMap<String, String> respawnworld = new HashMap<>();
 
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
-
         respawnworld.put(e.getEntity().getName(), Cache.getWorld(e.getEntity().getLevel()).getRespawnWorld());
-
     }
 
     @SuppressWarnings("deprecation")
@@ -138,9 +130,7 @@ public class Events implements Listener {
     @SuppressWarnings("deprecation")
     @EventHandler
     public void onForm(PlayerFormRespondedEvent e) {
-
-        if (e.getWindow() instanceof CustomForm) {
-            CustomForm fw = (CustomForm) e.getWindow();
+        if (e.getWindow() instanceof CustomForm fw) {
 
             if (fw.title().startsWith("§3WorldSettings")) {
                 String level = fw.title().replace("§3WorldSettings - ", "");
@@ -202,21 +192,18 @@ public class Events implements Listener {
                 level.gameRules = gamerules;
                 e.getPlayer().sendMessage(WorldManager.prefix + "§7Saved gamerules for §8" + level.getName());
             } else if (fw.title().startsWith("§3WorldSync")) {
-
                 if (fw.response() == null) {
                     e.getPlayer().sendMessage(WorldManager.prefix + "§7Didn't synced settings and gamerules for your selection.");
                     return;
                 }
 
                 try {
-
                     Level level = Server.getInstance().getLevelByName(fw.title().split(" - ")[1]);
                     Config c = Cache.getWorld(level).getConfig();
                     int i = 1;
                     for (Level l : Server.getInstance().getLevels().values()) {
                         if (l == level) continue;
                         if (fw.response().getToggleResponse(i)) {
-
                             Config c2 = Cache.getWorld(l).getConfig();
                             c2.setAll((LinkedHashMap<String, Object>) c.getAll());
                             c2.save();
@@ -229,12 +216,10 @@ public class Events implements Listener {
 
                 } catch (Exception e2) {
                     e.getPlayer().sendMessage(WorldManager.prefix + "§cSomething went wrong while syncing your worlds.");
-                    return;
                 }
 
             }
         }
-
     }
 
     @EventHandler
@@ -246,7 +231,6 @@ public class Events implements Listener {
             }
         } catch (Exception e2) {
         }
-
     }
 
     @EventHandler
@@ -255,7 +239,6 @@ public class Events implements Listener {
         try {
             if (Cache.getWorld(e.getBlock().getLevel()).isProtected()) e.setCancelled(true);
         } catch (Exception e2) {
-
         }
     }
 
@@ -271,7 +254,6 @@ public class Events implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
-
         if (Cache.getWorld(e.getBlock().getLevel()).isProtected()) {
             if (e.getAction() == Action.RIGHT_CLICK_BLOCK)
                 e.setCancelled(true);

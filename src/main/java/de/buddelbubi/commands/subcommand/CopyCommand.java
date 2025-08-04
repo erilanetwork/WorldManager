@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.LinkedList;
 
 public class CopyCommand extends SubCommand {
-
     public CopyCommand() {
         super("copy");
         this.setAliases(new String[]{
@@ -28,7 +27,6 @@ public class CopyCommand extends SubCommand {
 
     @Override
     public CommandParameter[] getParameters() {
-
         LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         parameters.add(CommandParameter.newType("world", true, CommandParamType.STRING));
@@ -39,7 +37,6 @@ public class CopyCommand extends SubCommand {
     @Override
     public boolean execute(CommandSender sender, String arg1, String[] args) {
         if (!sender.hasPermission("worldmanager.admin") && !sender.hasPermission("worldmanager.copy")) {
-
             sender.sendMessage(WorldManager.prefix + "§cYou are lacking the permission §e'worldmanager.copy'.");
             return false;
 
@@ -51,11 +48,8 @@ public class CopyCommand extends SubCommand {
 
 
             if (args.length >= 1) {
-
                 for (int i = 0; i < args.length; i++) {
-
                     if (args[i].equals("-w")) {
-
                         if (args.length >= i + 1) {
                             level = Server.getInstance().getLevelByName(args[i + 1]);
                             if (level == null) {
@@ -70,7 +64,6 @@ public class CopyCommand extends SubCommand {
                     }
 
                     if (args[i].equals("-n")) {
-
                         if (args.length >= i + 1) {
                             name = args[i + 1];
                         } else {
@@ -89,7 +82,6 @@ public class CopyCommand extends SubCommand {
                 sender.sendMessage(WorldManager.prefix + "§cDo /worldmanager copy (-w [World])* (-n [Name of Copy])* (-t)*.");
 
             if (level != null) {
-
                 int i = 1;
                 while (new File(Server.getInstance().getDataPath() + "worlds/" + name + (i == 1 ? "" : ("#" + i))).exists()) {
                     i++;
@@ -105,8 +97,7 @@ public class CopyCommand extends SubCommand {
 
                 for (String arg : args) {
                     if (arg.equalsIgnoreCase("-t")) {
-                        if (sender instanceof Player) {
-                            Player player = (Player) sender;
+                        if (sender instanceof Player player) {
                             player.teleport(Server.getInstance().getLevelByName(name).getSafeSpawn());
                         } else {
                             sender.sendMessage(WorldManager.prefix + "§cThis parameter is for ingame use only!");

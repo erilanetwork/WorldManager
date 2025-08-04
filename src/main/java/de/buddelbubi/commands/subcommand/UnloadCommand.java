@@ -10,7 +10,6 @@ import de.buddelbubi.WorldManager;
 import java.util.LinkedList;
 
 public class UnloadCommand extends SubCommand {
-
     public UnloadCommand() {
         super("unload");
         this.setAliases(new String[]{
@@ -20,26 +19,20 @@ public class UnloadCommand extends SubCommand {
 
     @Override
     public CommandParameter[] getParameters() {
-
         LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         parameters.add(CommandParameter.newType("world", false, CommandParamType.STRING));
         return parameters.toArray(new CommandParameter[parameters.size()]);
-
     }
 
     @Override
     public boolean execute(CommandSender sender, String arg1, String[] args) {
-
         if (!sender.hasPermission("worldmanager.admin") && !sender.hasPermission("worldmanager.unload")) {
-
             sender.sendMessage(WorldManager.prefix + "§cYou are lacking the permission §e'worldmanager.unload'.");
             return false;
 
         } else {
-
             if (args.length == 2) {
-
                 String name = args[1];
                 if (name.equals("-c") && sender instanceof Player) name = ((Player) sender).getLevel().getName();
                 if (Server.getInstance().getLevelByName(name) != null) {

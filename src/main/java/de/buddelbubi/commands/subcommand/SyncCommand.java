@@ -16,7 +16,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SyncCommand extends SubCommand {
-
     public SyncCommand() {
         super("sync");
         this.setAliases(new String[]{
@@ -26,23 +25,17 @@ public class SyncCommand extends SubCommand {
 
     @Override
     public CommandParameter[] getParameters() {
-
         LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         parameters.add(CommandParameter.newType("templateworld", true, CommandParamType.STRING));
         return parameters.toArray(new CommandParameter[parameters.size()]);
-
     }
 
     @Override
     public boolean execute(CommandSender sender, String arg1, String[] args) {
-
         if (sender.hasPermission("worldmanager.admin") || sender.hasPermission("worldmanager.sync")) {
-
             if (sender instanceof Player) {
-
                 if (args.length == 1 || args.length == 2) {
-
                     String levelname = null;
 
                     if (args.length == 2) {
@@ -50,7 +43,6 @@ public class SyncCommand extends SubCommand {
                     } else levelname = ((Player) sender).getLevel().getName();
 
                     if (Server.getInstance().getLevelByName(levelname) != null) {
-
                         CustomForm fw = new CustomForm("§3WorldSync - " + levelname);
                         fw.addElement(new ElementLabel("§7Select the worlds you want to sync with §e" + levelname + "§7. This includes WorldSettings and Gamerules."));
                         List<Level> level = new ArrayList<>(Server.getInstance().getLevels().values());

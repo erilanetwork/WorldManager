@@ -10,11 +10,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class LoadWorlds {
-
     public static boolean loaded = false;
 
     public static void loadWorlds() {
-
         File folder = new File(Server.getInstance().getDataPath() + "worlds/");
         File[] folders = folder.listFiles();
         for (File f : folders) {
@@ -57,7 +55,6 @@ public class LoadWorlds {
             c.save();
 
             if (c.getBoolean("LoadOnStart")) {
-
                 try {
                     Level level = Server.getInstance().getLevelByName(f.getName());
                     if (level == null) Server.getInstance().loadLevel(f.getName());

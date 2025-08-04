@@ -8,7 +8,6 @@ import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.command.data.CommandParameter;
 import cn.nukkit.level.DimensionEnum;
 import cn.nukkit.level.format.LevelConfig;
-import cn.nukkit.level.generator.Generator;
 import cn.nukkit.registry.Registries;
 import de.buddelbubi.WorldManager;
 import de.buddelbubi.listener.WorldManagerUI;
@@ -16,7 +15,6 @@ import de.buddelbubi.listener.WorldManagerUI;
 import java.util.*;
 
 public class GenerateCommand extends SubCommand {
-
     public GenerateCommand() {
         super("generate");
         this.setAliases(new String[]{
@@ -28,7 +26,6 @@ public class GenerateCommand extends SubCommand {
 
     @Override
     public CommandParameter[] getParameters() {
-
         LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         parameters.add(CommandParameter.newType("name", true, CommandParamType.STRING));
@@ -39,16 +36,12 @@ public class GenerateCommand extends SubCommand {
 
     @Override
     public boolean execute(CommandSender sender, String arg1, String[] args) {
-
         if (!sender.hasPermission("worldmanager.admin") && !sender.hasPermission("worldmanager.generate")) {
-
             sender.sendMessage(WorldManager.prefix + "§cYou are lacking the permission §e'worldmanager.generate'.");
             return false;
 
         } else if (args.length >= 2 && args.length <= 4) {
-
             if (Server.getInstance().getLevelByName(args[1]) == null) {
-
                 String name = args[1];
                 String generator = "flat";
                 long Seed = new Random().nextLong();

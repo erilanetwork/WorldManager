@@ -14,7 +14,6 @@ import de.buddelbubi.utils.Cache;
 import java.util.LinkedList;
 
 public class InfoCommand extends SubCommand {
-
     public InfoCommand() {
         super("info");
         this.setAliases(new String[]{
@@ -24,24 +23,19 @@ public class InfoCommand extends SubCommand {
 
     @Override
     public CommandParameter[] getParameters() {
-
         LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         parameters.add(CommandParameter.newType("world", true, CommandParamType.STRING));
         return parameters.toArray(new CommandParameter[parameters.size()]);
-
     }
 
     @Override
     public boolean execute(CommandSender sender, String arg1, String[] args) {
-
         if (!sender.hasPermission("worldmanager.admin") && !sender.hasPermission("worldmanager.info")) {
-
             sender.sendMessage(WorldManager.prefix + "§cYou dont have the permission to do this..");
             return false;
 
         } else {
-
             if (sender instanceof ConsoleCommandSender && args.length == 1) {
                 sender.sendMessage(WorldManager.prefix + "§cDo /worldmanager info [World].");
                 return false;

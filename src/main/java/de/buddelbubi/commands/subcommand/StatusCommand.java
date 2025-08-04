@@ -10,7 +10,6 @@ import de.buddelbubi.utils.Updater;
 import java.util.LinkedList;
 
 public class StatusCommand extends SubCommand {
-
     public StatusCommand() {
         super("status");
         this.setAliases(new String[]{
@@ -20,23 +19,18 @@ public class StatusCommand extends SubCommand {
 
     @Override
     public CommandParameter[] getParameters() {
-
         LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         return parameters.toArray(new CommandParameter[parameters.size()]);
-
     }
 
     @Override
     public boolean execute(CommandSender sender, String arg1, String[] args) {
-
         if (!sender.hasPermission("worldmanager.admin") && !sender.hasPermission("worldmanager.status")) {
-
             sender.sendMessage(WorldManager.prefix + "§cYou are lacking the permission §e'worldmanager." + args[0] + "'.");
             return false;
 
         } else {
-
             String message = "§l§3WorldManager §eStatus\n§r";
             message += ("§ePlugin Version: §7" + WorldManager.get().getDescription().getVersion() + "\n");
             message += ("§eNewest Version: §7" + Updater.getNewestVersion() + "\n");

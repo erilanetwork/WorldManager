@@ -21,7 +21,6 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 public class Addons implements Listener {
-
     public final static String url = "https://buddelbubi.xyz/cdn/worldmanager/nukkit/indexes.json";
 
     public static JsonObject json;
@@ -48,7 +47,6 @@ public class Addons implements Listener {
     }
 
     public static void showAddonUI(Player p) {
-
         if (json == null) {
             p.sendMessage(WorldManager.prefix + "§cAddons are not available right now. It may be caused by gson.");
             return;
@@ -67,10 +65,7 @@ public class Addons implements Listener {
 
     @EventHandler
     public void on(PlayerFormRespondedEvent e) {
-
-        if (e.getWindow() instanceof SimpleForm && e.getResponse() != null) {
-
-            SimpleForm fws = (SimpleForm) e.getWindow();
+        if (e.getWindow() instanceof SimpleForm fws && e.getResponse() != null) {
             SimpleForm fw = new SimpleForm("", "");
             if (e.getFormID() == "addonsections".hashCode()) {
                 JsonObject categories = json.get("categories").getAsJsonObject();
@@ -117,7 +112,6 @@ public class Addons implements Listener {
     }
 
     public static void installAddon(String name, CommandSender arg0) {
-
         arg0.sendMessage(WorldManager.prefix + "§aStarting the download...");
         try {
             JsonObject section = json.get("plugins").getAsJsonObject();
@@ -133,6 +127,5 @@ public class Addons implements Listener {
         } catch (IOException e) {
             arg0.sendMessage(WorldManager.prefix + "§cDownload failed...  (" + e.getMessage() + ")");
         }
-
     }
 }

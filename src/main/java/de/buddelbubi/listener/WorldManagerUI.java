@@ -53,7 +53,6 @@ public class WorldManagerUI implements Listener {
     @EventHandler
     public void onFormResponse(PlayerFormRespondedEvent e) {
         if (e.getWindow() instanceof SimpleForm fw && e.getResponse() != null) {
-
             if (fw.title().equals("§3WorldManager §8- §cTeleportation UI")) {
                 Level level = Server.getInstance().getLevelByName(fw.response().button().text());
                 e.getPlayer().teleport(level.getSafeSpawn());

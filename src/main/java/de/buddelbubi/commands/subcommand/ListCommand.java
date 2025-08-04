@@ -10,7 +10,6 @@ import java.io.File;
 import java.util.LinkedList;
 
 public class ListCommand extends SubCommand {
-
     public ListCommand() {
         super("list");
         this.setAliases(new String[]{
@@ -20,26 +19,20 @@ public class ListCommand extends SubCommand {
 
     @Override
     public CommandParameter[] getParameters() {
-
         LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         parameters.add(CommandParameter.newType("world", false, CommandParamType.STRING));
         return parameters.toArray(new CommandParameter[parameters.size()]);
-
     }
 
     @Override
     public boolean execute(CommandSender sender, String arg1, String[] args) {
-
         if (!sender.hasPermission("worldmanager.admin") && !sender.hasPermission("worldmanager.list")) {
-
             sender.sendMessage(WorldManager.prefix + "§cYou are lacking the permission §e'worldmanager.list'.");
             return false;
 
         } else {
-
             if (args.length == 1) {
-
                 String worldstring = "";
                 File folder = new File(Server.getInstance().getDataPath() + "worlds/");
                 File[] folders = folder.listFiles();

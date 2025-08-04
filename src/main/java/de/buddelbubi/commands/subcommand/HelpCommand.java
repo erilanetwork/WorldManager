@@ -7,7 +7,6 @@ import de.buddelbubi.WorldManager;
 import java.util.LinkedList;
 
 public class HelpCommand extends SubCommand {
-
     public HelpCommand() {
         super("help");
         this.setAliases(new String[]{
@@ -17,25 +16,17 @@ public class HelpCommand extends SubCommand {
 
     @Override
     public CommandParameter[] getParameters() {
-
         LinkedList<CommandParameter> parameters = new LinkedList<>();
         parameters.add(CommandParameter.newEnum(this.getName(), this.getAliases()));
         return parameters.toArray(new CommandParameter[parameters.size()]);
-
     }
 
     @Override
     public boolean execute(CommandSender sender, String arg1, String[] args) {
-
         if (!sender.hasPermission("worldmanager.admin") && !sender.hasPermission("worldmanager.help")) {
-
             sender.sendMessage(WorldManager.prefix + "§cYou are lacking the permission §e'worldmanager." + args[0] + "'.");
-            return false;
-
         } else {
-
             if (args.length == 1) {
-
                 sender.sendMessage("§eWorldmanager Help\n" +
                         "§3The Maincommand is /worldmanager. But you can also use §c/wm, /mw, /mv, /levelmanager, /world §3and §c/lm§3\n" +
                         "§c/worldmanager teleport [World]§4*§3 (Player)§4* §3teleports you or the pointed player in this world. Instead of teleport, you can use §ctp §3and §cto\n" +
@@ -60,12 +51,10 @@ public class HelpCommand extends SubCommand {
                         "§c/worldmanager addons §3will open the Addon UI to extend your Server\n" +
                         "§c/worldmanager default §3shows you the default level. You can change it if you write the worldname too." +
                         "§4§l* optional");
-
             } else sender.sendMessage(WorldManager.prefix + "§cDo /worldmanager help");
-            return false;
-
         }
 
+        return false;
     }
 
 }
